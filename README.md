@@ -8,6 +8,7 @@ This repo also maintain a mirror list for openSUSE.
 # Usage
 
 ![Peek](https://user-images.githubusercontent.com/20123683/111223124-1bfae600-85b3-11eb-948f-0ca547c9f66f.gif)
+![image](https://user-images.githubusercontent.com/20123683/111234072-2bcef600-85c4-11eb-82e4-6543f6d62da0.png)
 
 _Only support openSUSE-Tumbleweed for now_
 
