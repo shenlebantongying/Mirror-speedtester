@@ -1,0 +1,22 @@
+[
+  "For some reason, those mirrors doesn't work",
+  {
+    "_": "Cannot ping",
+    "name": "bjtu",
+    "ip": "202.112.154.58",
+    "url": "mirror.bjtu.edu.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.1",
+        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      }, {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  }
+]
