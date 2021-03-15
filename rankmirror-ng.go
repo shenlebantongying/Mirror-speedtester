@@ -14,23 +14,41 @@ import (
 	"strings"
 )
 
+// Architecture note
+// To simplify implemention, reduce maintaince cost and ease of life, 
+// This program just invoke existing commands like curl, ping, host, then parse the result...
+
+// 1. Parse mirror-list.json -> load into `mirrorDB` -> parse into a convient `mirrorList`
+// 2. Iterate `mirrorlist` to get all urls, then perfom each tests for that url.
+// 3. Aggregate 
+
+// Add new tests result:
+// 1. add a var to the end of `type Mirror struct`
+// 2. make a function to obtain it
+// 3. inovke the function during [2.]
+
 func main() {
 
+// [1.]
 	var mirrorDB MirrorDB
-
+    
 	f, err := ioutil.ReadFile("./mirror-list.json")
 	check(err, "Cannot read /etc/os-re lease")
 	err = json.Unmarshal(f, &mirrorDB)
 	check(err, "mirror-list.json might be invalid")
 
 	mirrorList := getMyMirrorList(mirrorDB, getSystemName())
-
+	
+// [2.]
+	
 	for i, m := range mirrorList {
 		fmt.Printf("Testing [%v/%v] %s \r", i+1, len(mirrorList), m.Name)
 		mirrorList[i].DownloadSpeed = getAverageDownloadSpeed(m.Url + m.TestFile)
 		mirrorList[i].Ping = getAveragePing(m.BaseUrl)
 		fmt.Printf(EraseLine)
 	}
+	
+// [3.]
 
 	sort.Slice(mirrorList[:], func(i, j int) bool {
 		return mirrorList[i].DownloadSpeed > mirrorList[j].DownloadSpeed
