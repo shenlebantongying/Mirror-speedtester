@@ -1,7 +1,6 @@
 [
   {
-    "name": "tuna",
-    "ip": "101.6.8.193",
+    "name": "清华",
     "url": "mirrors.tuna.tsinghua.edu.cn",
     "mapping": [
       {
@@ -23,8 +22,103 @@
     ]
   },
   {
-    "name": "SUSTech",
-    "ip": "116.7.234.220",
+    "name": "opentuna",
+    "url": "opentuna.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "北交大",
+    "url": "mirror.bjtu.edu.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.1",
+        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      }, {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "兰州大学",
+    "url": "mirror.lzu.edu.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.1",
+        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      }, {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "北京外国语言",
+    "url": "mirrors.bfsu.edu.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.1",
+        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      }, {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+{
+  "name": "哈工大",
+  "url": "https://mirrors.hit.edu.cn",
+  "mapping": [
+    {
+      "distro": "opensuse-15.1",
+      "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+    },
+    {
+      "distro": "opensuse-15.2",
+      "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+    }, {
+      "distro": "opensuse-tumbleweed",
+      "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+    }
+  ]
+},
+  {
+    "name": "南京大学",
+    "url": "mirrors.nju.edu.cn",
+    "mapping": [
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "南方科技大学",
     "url": "mirrors.sustech.edu.cn",
     "mapping": [
       {
@@ -38,9 +132,8 @@
     ]
   },
   {
-    "name": "pingan",
-    "ip": "121.12.82.4",
-    "url": "mirrors.pinganyun.com",
+    "name": "重庆大学",
+    "url": "mirrors.cqu.edu.cn",
     "mapping": [
       {
         "distro": "opensuse-15.2",
@@ -53,38 +146,7 @@
     ]
   },
   {
-    "name": "huawei",
-    "ip": "49.4.56.8",
-    "url": "mirrors.huaweicloud.com",
-    "mapping": [
-      {
-        "distro": "opensuse-15.2",
-        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-tumbleweed",
-        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
-      }
-    ]
-  },
-  {
-    "name": "tencent",
-    "ip": "42.194.157.107",
-    "url": "mirrors.cloud.tencent.com",
-    "mapping": [
-      {
-        "distro": "opensuse-15.2",
-        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-tumbleweed",
-        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
-      }
-    ]
-  },
-  {
-    "name": "zju",
-    "ip": " 210.32.158.231",
+    "name": "浙江大学",
     "url": "mirrors.zju.edu.cn",
     "mapping": [
       {
@@ -98,65 +160,7 @@
     ]
   },
   {
-    "name": "ustc",
-    "ip": "218.104.71.170",
-    "url": "mirrors.ustc.edu.cn",
-    "mapping": [
-      {
-        "distro": "opensuse-15.1",
-        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-15.2",
-        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-tumbleweed",
-        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
-      }
-    ]
-  },
-  {
-    "name": "Yun-Idc",
-    "ip": "114.112.43.174",
-    "url": "mirrors.yun-idc.com",
-    "mapping": [
-      {
-        "distro": "opensuse-15.1",
-        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-15.2",
-        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-tumbleweed",
-        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
-      }
-    ]
-  },
-  {
-    "name": "cqu",
-    "ip": "114.112.43.174",
-    "url": "mirrors.cqu.edu.cn",
-    "mapping": [
-      {
-        "distro": "opensuse-15.1",
-        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-15.2",
-        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
-      },
-      {
-        "distro": "opensuse-tumbleweed",
-        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
-      }
-    ]
-  },
-  {
-    "name": "Sjtu",
-    "ip": "202.38.97.230",
+    "name": "上海交大",
     "url": "ftp.sjtu.edu.cn",
     "mapping": [
       {
@@ -174,14 +178,117 @@
     ]
   },
   {
-    "name": "163",
-    "ip": "59.111.0.251",
-    "url": "mirrors.163.com",
+    "name": "中科大",
+    "url": "mirrors.ustc.edu.cn",
     "mapping": [
       {
         "distro": "opensuse-15.1",
         "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
       },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "腾讯",
+    "url": "mirrors.cloud.tencent.com",
+    "mapping": [
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  }, {
+  "name": "阿里巴巴",
+  "url": "mirrors.aliyun.com",
+  "mapping": [
+    {
+      "distro": "opensuse-15.2",
+      "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+    },
+    {
+      "distro": "opensuse-tumbleweed",
+      "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+    }
+  ]
+},
+  {
+    "name": "搜狐",
+    "url": "mirrors.sohu.com",
+    "mapping": [
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  }, {
+  "name": "网易",
+  "url": "mirrors.163.com",
+  "mapping": [
+    {
+      "distro": "opensuse-15.1",
+      "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+    },
+    {
+      "distro": "opensuse-15.2",
+      "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+    },
+    {
+      "distro": "opensuse-tumbleweed",
+      "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+    }
+  ]
+},
+  {
+    "name": "pingan",
+    "url": "mirrors.pinganyun.com",
+    "mapping": [
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "Yun-Idc",
+    "url": "mirrors.yun-idc.com",
+    "mapping": [
+      {
+        "distro": "opensuse-15.1",
+        "path": ["/opensuse/distribution/leap/15.1/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-15.2",
+        "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]
+      },
+      {
+        "distro": "opensuse-tumbleweed",
+        "path": ["/opensuse/tumbleweed/", "repo/oss/INDEX.gz"]
+      }
+    ]
+  },
+  {
+    "name": "huawei",
+    "url": "mirrors.huaweicloud.com",
+    "mapping": [
       {
         "distro": "opensuse-15.2",
         "path": ["/opensuse/distribution/leap/15.2/", "repo/oss/INDEX.gz"]

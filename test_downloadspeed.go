@@ -14,9 +14,8 @@ func getAverageDownloadSpeed(url string, wg *sync.WaitGroup, mirrorList []Mirror
 	// &{speed_download} -> Bytes per second
 	cmd.WriteString("curl -s -w \"%{speed_download}\" -o /dev/null -L ")
 	cmd.WriteString(url)
-
 	output, err := exec.Command("/bin/sh", "-c", cmd.String()).Output()
-	check(err, "No curl found on the system")
+	check(err, "Curl Fatal: "+cmd.String())
 
 	if string(output) == "" {
 		mirrorList[index].DownloadSpeed = 0

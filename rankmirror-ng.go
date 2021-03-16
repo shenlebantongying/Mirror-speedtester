@@ -66,7 +66,7 @@ func main() {
 	// [2.]
 	//******************************************************************************************************************
 
-  wg := new(sync.WaitGroup) // Global wait groups for every tests
+	wg := new(sync.WaitGroup) // Global wait groups for every tests
 
 	for i, m := range mirrorList {
 		wg.Add(1)
@@ -85,9 +85,9 @@ func main() {
 	fmt.Println("[ID] #name #downlaod speed # ping #url")
 	for i, m := range mirrorList {
 		if m.Ping == 9999.99 {
-			fmt.Printf("[%2v] %s | %3.2f KiB/s| %s | https:// %s  \n", i+1, m.Name, m.DownloadSpeed, "NaN", m.Url)
+			fmt.Printf("[%2v] %s - %3.2f KiB/s - %s - https://%s\n", i+1, m.Name, m.DownloadSpeed, "NaN", m.Url)
 		} else {
-			fmt.Printf("[%2v] %s | %3.2f KiB/s | %3.2f ms | https:// %s \n", i+1, m.Name, m.DownloadSpeed, m.Ping, m.Url)
+			fmt.Printf("[%2v] %s - %3.2f KiB/s - %3.2f ms - https://%s\n", i+1, m.Name, m.DownloadSpeed, m.Ping, m.Url)
 		}
 	}
 }
@@ -114,7 +114,6 @@ type osRelease struct {
 type MirrorDB []_Mirror
 type _Mirror struct {
 	Name    string `json:"name"`
-	Ip      string `json:"ip"`
 	Url     string `json:"url"`
 	Mapping []struct {
 		Distro string   `json:"distro"`

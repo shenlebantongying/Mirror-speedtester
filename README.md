@@ -7,8 +7,8 @@ This repo also maintain a mirror list for openSUSE.
 
 # Usage
 
-![Peek](https://user-images.githubusercontent.com/20123683/111223124-1bfae600-85b3-11eb-948f-0ca547c9f66f.gif)
-![image](https://user-images.githubusercontent.com/20123683/111234072-2bcef600-85c4-11eb-82e4-6543f6d62da0.png)
+Testing results:
+![Peek](https://user-images.githubusercontent.com/20123683/111290671-c3f8c980-861c-11eb-8262-30bb07736385.png)
 
 _Only support openSUSE-Tumbleweed for now_
 
@@ -26,7 +26,6 @@ Example
 ```json
 {
   "name": "tuna",
-  "ip": "101.6.8.193",
   "url": "mirrors.tuna.tsinghua.edu.cn",
   "mapping": [
     {

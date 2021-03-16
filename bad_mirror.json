@@ -1,10 +1,8 @@
 [
   "For some reason, those mirrors doesn't work",
-  {
-    "_": "Cannot ping",
-    "name": "bjtu",
-    "ip": "202.112.154.58",
-    "url": "mirror.bjtu.edu.cn",
+  { "__TODO___":"have to force HTTPS for this one to work"
+    "name": "北理工",
+    "url": "mirrors.bit.edu.cn",
     "mapping": [
       {
         "distro": "opensuse-15.1",
