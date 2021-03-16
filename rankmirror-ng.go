@@ -37,15 +37,11 @@ func main() {
 		distro string
 
 	flag.StringVar(&distro, "distro", "", "Manually set distro name ")
-	flag.StringVar(&mirrorListPath, "mirrolist", "", "Set path to mirror-list.json")
+	flag.StringVar(&mirrorListPath, "mirrolist", "./mirror-list.json", "Set path to mirror-list.json")
 	flag.Parse()
 
 	if distro == "" {
 		distro = getSystemName()
-	}
-
-	if distro == "" {
-		mirrorListPath = "./mirror-list.json"
 	}
 
 	// [1.]
@@ -53,7 +49,7 @@ func main() {
 	var mirrorDB MirrorDB
 
 	f, err := ioutil.ReadFile(mirrorListPath)
-	check(err, "Cannot read /etc/os-re lease")
+	check(err, "Cannot read /MirrorList")
 	err = json.Unmarshal(f, &mirrorDB)
 	check(err, "mirror-list.json might be invalid")
 
@@ -61,10 +57,14 @@ func main() {
 
 	// [2.]
 	//******************************************************************************************************************
+
 	for i, m := range mirrorList {
 		fmt.Printf("Testing [%v/%v] %s \r", i+1, len(mirrorList), m.Name)
+
 		mirrorList[i].DownloadSpeed = getAverageDownloadSpeed(m.Url + m.TestFile)
+
 		mirrorList[i].Ping = getAveragePing(m.BaseUrl)
+
 		fmt.Printf(EraseLine)
 	}
 
