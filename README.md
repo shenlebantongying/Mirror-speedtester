@@ -1,4 +1,4 @@
-# Rankmirror-NG [WIP]
+# Rankmirror-NGX [WIP]
 [![Go Report Card](https://goreportcard.com/badge/github.com/shenlebantongying/rankmirror-ng)](https://goreportcard.com/report/github.com/shenlebantongying/rankmirror-ng)
 
 A utility written in `Go` to test mirrors quality for openSUSE and possibly various linux distros .This program provides similar functionalities as Archlinux's [rankmirror](https://git.archlinux.org/pacman-contrib.git/tree/src/rankmirrors.sh.in) and [reflector](https://xyne.archlinux.ca/projects/reflector/) or Debian/Ubuntu's [netselect-apt](https://packages.debian.org/stretch/netselect-apt).
