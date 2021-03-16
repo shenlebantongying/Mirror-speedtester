@@ -1,6 +1,6 @@
 [
   "For some reason, those mirrors doesn't work",
-  { "__TODO___":"have to force HTTPS for this one to work"
+  { "__TODO___":"have to force HTTPS for this one to work",
     "name": "北理工",
     "url": "mirrors.bit.edu.cn",
     "mapping": [

@@ -48,7 +48,7 @@ func main() {
 	flag.Parse()
 
 	if distro == "" {
-		distro = getSystemName()
+		distro = getCanonicalSystemName()
 	}
 
 	// [1.]
@@ -103,12 +103,6 @@ type Mirror struct {
 	DownloadSpeed float64
 	Ping          float64
 }
-type osRelease struct {
-	// https://www.freedesktop.org/software/systemd/man/os-release.html
-	// Note that ArchLinux doesn't have VERSION_ID
-	id        string  // ID : opensuse-tumbleweed | opensuse
-	versionId float64 // VERSION_ID : 20210311    | 15.2
-}
 
 // MirrorDB mirror-list.json mapping
 type MirrorDB []_Mirror
@@ -131,9 +125,6 @@ const (
 //[MirrorList processing]
 //**********************************************************************************************************************
 func getMyMirrorList(mirrordb MirrorDB, distro string) []Mirror {
-	// "distro" format:
-	// -> regular  distros: ID-VERSION_ID (e.g. opensuse-15.3)
-	// -> rolling releases: ID            (e.g. "opensuse-tumbleweed" or "arch")
 
 	var mirrorList []Mirror
 	var urlBuilder strings.Builder
@@ -172,22 +163,37 @@ func check(e error, s string) {
 	}
 }
 
-func NewOsRelease() *osRelease {
-	return &osRelease{id: "", versionId: 0}
-}
+func getCanonicalSystemName() string {
+	// "Canonical" System Name format:
+	// -> rolling releases: ID            (e.g. "opensuse-tumbleweed" or "arch")
+	// -> regular  distros: ID-VERSION_ID (e.g. opensuse-15.3)
 
-func getSystemName() string {
 	f, err := ioutil.ReadFile("/etc/os-release")
 	check(err, "Cannot read /etc/os-release")
 	scanner := bufio.NewScanner(bytes.NewReader(f))
 
+	var (
+		id      string
+		version string
+	)
+
 	for scanner.Scan() {
 		var arr = strings.Split(scanner.Text(), "=")
 		if arr[0] == "ID" {
-			return arr[1][1 : len(arr[1])-1]
+			id = arr[1][1 : len(arr[1])-1]
+			switch id {
+			case "opensuse-tumbleweed", "arch":
+				return id
+			} // if its rolling release, version_id has no sense, so just return id
+		}
+		if arr[0] == "VERSION_ID" {
+			version = arr[1][1 : len(arr[1])-1]
+			return id + "-" + version
 		}
 	}
 	// XDG says ID is default to linux
 	//https://www.freedesktop.org/software/systemd/man/os-release.html
 	return "linux"
+
+	// There is bug if a distro put version_id before id
 }

@@ -10,8 +10,6 @@ This repo also maintain a mirror list for openSUSE.
 Testing results:
 ![Peek](https://user-images.githubusercontent.com/20123683/111290671-c3f8c980-861c-11eb-8262-30bb07736385.png)
 
-_Only support openSUSE-Tumbleweed for now_
-
 ## Add more mirrors for testing 
 
 mirror-list.json format
