@@ -51,7 +51,8 @@ Example
 
 # Roadmap
 
-+ [ ] concurrency to speed up tests
++ [x] concurrency to speed up tests
+  + add an option to disable concurrency for low-quality network?
 + [ ] Merge more from [marguerite/rankmirror-ng](https://github.com/marguerite/rankmirror-ng)
 + [ ] Automatically change mirror via zypper (and more)
 + [ ] complete cli interface

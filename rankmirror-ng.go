@@ -9,10 +9,9 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"os/exec"
 	"sort"
-	"strconv"
 	"strings"
+	"sync"
 )
 
 // Architecture note
@@ -21,13 +20,21 @@ import (
 
 // Steps
 // 1. Parse mirror-list.json -> load into `mirrorDB` -> parse into a convenient `mirrorList`
-// 2. Iterate `mirrorList` to get all urls, then perform each tests for each url.
+// 2. Iterate `mirrorList` to get all urls, and trigger goroutines for each tests.
 // 3. Aggregate
 
 // Add new tests result:
+// 0. Create a file as test_[name].go
 // 1. Add a new field to the end of `type Mirror struct`
 // 2. make a function to obtain the field
 // 3. invoke the function during step [2.]
+
+// Test function parameters:
+// func(Parameters,     =>
+//      wg,             => global sync.WaitGroup
+//      mirrorList,     => list to hold results
+//      index           => pass an index to let the function know its position at mirrorList
+//     ) void {}        => No return, since we store them directly into mirrorList
 
 func main() {
 
@@ -49,7 +56,8 @@ func main() {
 	var mirrorDB MirrorDB
 
 	f, err := ioutil.ReadFile(mirrorListPath)
-	check(err, "Cannot read /MirrorList")
+	check(err, "Cannot read ./mirror-list.json")
+
 	err = json.Unmarshal(f, &mirrorDB)
 	check(err, "mirror-list.json might be invalid")
 
@@ -58,16 +66,17 @@ func main() {
 	// [2.]
 	//******************************************************************************************************************
 
+  wg := new(sync.WaitGroup) // Global wait groups for every tests
+
 	for i, m := range mirrorList {
-		fmt.Printf("Testing [%v/%v] %s \r", i+1, len(mirrorList), m.Name)
+		wg.Add(1)
+		go getAverageDownloadSpeed(m.Url+m.TestFile, wg, mirrorList, i)
+		wg.Add(1)
+		go getAveragePing(m.BaseUrl, wg, mirrorList, i)
 
-		mirrorList[i].DownloadSpeed = getAverageDownloadSpeed(m.Url + m.TestFile)
-
-		mirrorList[i].Ping = getAveragePing(m.BaseUrl)
-
-		fmt.Printf(EraseLine)
 	}
 
+	wg.Wait()
 	// [3.]
 	//******************************************************************************************************************
 	sort.Slice(mirrorList[:], func(i, j int) bool {
@@ -83,16 +92,17 @@ func main() {
 	}
 }
 
+//[Data structures]
 //**********************************************************************************************************************
-// Utils
 
-func check(e error, s string) {
-	if e != nil {
-		println(s)
-		panic(e)
-	}
+type Mirror struct {
+	Name          string
+	BaseUrl       string
+	Url           string
+	TestFile      string
+	DownloadSpeed float64
+	Ping          float64
 }
-
 type osRelease struct {
 	// https://www.freedesktop.org/software/systemd/man/os-release.html
 	// Note that ArchLinux doesn't have VERSION_ID
@@ -112,15 +122,6 @@ type _Mirror struct {
 	} `json:"mapping"`
 }
 
-type Mirror struct {
-	Name          string
-	BaseUrl       string
-	Url           string
-	TestFile      string
-	DownloadSpeed float64
-	Ping          float64
-}
-
 // ANSI escape codes
 const (
 	Esc       = "\033["
@@ -128,89 +129,8 @@ const (
 	Left      = Esc + "1D"
 )
 
+//[MirrorList processing]
 //**********************************************************************************************************************
-
-func getSystemName() string {
-	f, err := ioutil.ReadFile("/etc/os-release")
-	check(err, "Cannot read /etc/os-release")
-	scanner := bufio.NewScanner(bytes.NewReader(f))
-
-	for scanner.Scan() {
-		var arr = strings.Split(scanner.Text(), "=")
-		if arr[0] == "ID" {
-			return arr[1][1 : len(arr[1])-1]
-		}
-	}
-	// XDG says ID is default to linux
-	//https://www.freedesktop.org/software/systemd/man/os-release.html
-	return "linux"
-}
-
-//**********************************************************************************************************************
-
-func getAveragePing(url string) float64 {
-	var cmd strings.Builder
-	cmd.WriteString("ping -c 3 -q ")
-	cmd.WriteString(url)
-
-	output, err := exec.Command("/bin/sh", "-c", cmd.String()).Output()
-	if err != nil {
-		return 9999.99
-	}
-
-	// Code below are parsing this:
-	//ping -c 5 -q google.com
-	//lc->
-	//0 -> PING google.com (172.217.1.174) 56(84) bytes of data.
-	//1 ->
-	//2 -> --- google.com ping statistics ---
-	//3 -> 5 packets transmitted, _4_ received, 20% packet loss, time 4005ms
-	//4 -> rtt min/avg/max/mdev = 37.594/_37.950_/38.302/0.270 ms
-
-	lc := 0 //line counter for scanner
-	scanner := bufio.NewScanner(bytes.NewReader(output))
-	for scanner.Scan() {
-		if lc == 3 {
-			received := strings.Split(scanner.Text(), " ")[3]
-			if received == "0" {
-				return 9999.99
-			}
-		} else if lc == 4 {
-			received := strings.Split(scanner.Text(), "/")[4]
-			avgRTT, err := strconv.ParseFloat(received, 32)
-			check(err, "Cannot parser float for ping")
-			return avgRTT
-		}
-		lc++
-
-	}
-	return 9999.99
-}
-
-func BytesToKiBs(n int) float64 {
-	//1 KiB/s = 1024 Bytes/s
-	return float64(n) / 1024.0
-}
-
-func getAverageDownloadSpeed(url string) float64 {
-	var cmd strings.Builder
-	// &{speed_download} -> Bytes per second
-	cmd.WriteString("curl -s -w \"%{speed_download}\" -o /dev/null -L ")
-	cmd.WriteString(url)
-
-	output, err := exec.Command("/bin/sh", "-c", cmd.String()).Output()
-	check(err, "No curl found on the system")
-
-	if string(output) == "" {
-		return 0
-	}
-
-	downSpeedBytes, err := strconv.Atoi(string(output))
-	check(err, "curl return format error")
-
-	return BytesToKiBs(downSpeedBytes)
-}
-
 func getMyMirrorList(mirrordb MirrorDB, distro string) []Mirror {
 	// "distro" format:
 	// -> regular  distros: ID-VERSION_ID (e.g. opensuse-15.3)
@@ -243,8 +163,32 @@ func getMyMirrorList(mirrordb MirrorDB, distro string) []Mirror {
 	return mirrorList
 }
 
+// [Utils]
 //**********************************************************************************************************************
+
+func check(e error, s string) {
+	if e != nil {
+		println(s)
+		panic(e)
+	}
+}
 
 func NewOsRelease() *osRelease {
 	return &osRelease{id: "", versionId: 0}
+}
+
+func getSystemName() string {
+	f, err := ioutil.ReadFile("/etc/os-release")
+	check(err, "Cannot read /etc/os-release")
+	scanner := bufio.NewScanner(bytes.NewReader(f))
+
+	for scanner.Scan() {
+		var arr = strings.Split(scanner.Text(), "=")
+		if arr[0] == "ID" {
+			return arr[1][1 : len(arr[1])-1]
+		}
+	}
+	// XDG says ID is default to linux
+	//https://www.freedesktop.org/software/systemd/man/os-release.html
+	return "linux"
 }
