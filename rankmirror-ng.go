@@ -57,6 +57,7 @@ func main() {
 
 	f, err := ioutil.ReadFile(mirrorListPath)
 	check(err, "Cannot read ./mirror-list.json")
+
 	err = json.Unmarshal(f, &mirrorDB)
 	check(err, "mirror-list.json might be invalid")
 
@@ -64,13 +65,15 @@ func main() {
 
 	// [2.]
 	//******************************************************************************************************************
-	wg := new(sync.WaitGroup) // Global wait groups for every tests
+
+  wg := new(sync.WaitGroup) // Global wait groups for every tests
 
 	for i, m := range mirrorList {
 		wg.Add(1)
 		go getAverageDownloadSpeed(m.Url+m.TestFile, wg, mirrorList, i)
 		wg.Add(1)
 		go getAveragePing(m.BaseUrl, wg, mirrorList, i)
+
 	}
 
 	wg.Wait()
