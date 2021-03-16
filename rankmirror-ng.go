@@ -67,7 +67,7 @@ func main() {
 	//******************************************************************************************************************
 
 	wg := new(sync.WaitGroup) // Global wait groups for every tests
-
+	fmt.Printf("Testing %v mirrors, please wait about 1 min... \r", len(mirrorList))
 	for i, m := range mirrorList {
 		wg.Add(1)
 		go getAverageDownloadSpeed(m.Url+m.TestFile, wg, mirrorList, i)
@@ -77,6 +77,8 @@ func main() {
 	}
 
 	wg.Wait()
+	fmt.Printf(EraseLine)
+
 	// [3.]
 	//******************************************************************************************************************
 	sort.Slice(mirrorList[:], func(i, j int) bool {
@@ -119,7 +121,6 @@ type _Mirror struct {
 const (
 	Esc       = "\033["
 	EraseLine = Esc + "K"
-	Left      = Esc + "1D"
 )
 
 //[MirrorList processing]
